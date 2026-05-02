@@ -4,10 +4,10 @@ const API_KEY = import.meta.env.VITE_API_KEY;
     method: "GET",
   };
 
-export const getPopularMovies = async () => {
+export const getPopularMovies = async (page = 1) => {
  
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
+    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`,
     options,
   );
   const data = await response.json();
