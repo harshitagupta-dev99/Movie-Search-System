@@ -1,18 +1,25 @@
 import MovieCard from "../components/MovieCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { searchMovies, getPopularMovies } from "../services/api";
 import "../css/Home.css";
 import SkeletonCard from "../components/SkeletonCard";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [finalQuery, setFinalQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const debounceRef = useRef(null);
 
   useEffect(() => {
-    const loadPopularMovies = async () => {
+    loadPopularMovies();
+  }, []);
+
+  const loadPopularMovies = async () => {
       try {
         const popularMovies = await getPopularMovies();
         setMovies(popularMovies);
@@ -24,9 +31,6 @@ function Home() {
       }
     };
 
-    loadPopularMovies();
-  }, []);
-
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
@@ -35,6 +39,7 @@ function Home() {
     setLoading(true);
     try {
       const searchResults = await searchMovies(searchQuery);
+      setFinalQuery(searchQuery);
       setMovies(searchResults);
       setError(null);
     } catch (err) {
@@ -42,7 +47,55 @@ function Home() {
       setError("Failed to search movies...");
     } finally {
       setLoading(false);
+      setShowDropdown(false);
+      setSuggestions([]);
     }
+  };
+
+  const fetchSuggestions = async (value) => {
+    if (!value.trim()) {
+      setSuggestions([]);
+      setShowDropdown(false);
+      return;
+    }
+    // setLoading(true); //check if needed or not ??
+    try {
+      setShowDropdown(true);
+      const searchResults = await searchMovies(searchQuery);
+      setSuggestions(searchResults?.slice(0, 5)); // limit to 5
+      setError(null);
+    } catch (err) {
+      console.log(err);
+      setError("Failed to search movies...");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  console.log("searchQuery==",searchQuery);
+  console.log("finalQuery==",finalQuery);
+
+  const handleChange = (e) => {
+    setSearchQuery(e.target.value);
+
+     if (!e.target.value.trim()) {
+    setSuggestions([]);
+    setFinalQuery(""); // clear final query HERE
+    setMovies([]);
+    setPage(1);
+    loadPopularMovies();
+    return;
+  }
+
+    // clear previous timer
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      // setShowDropdown(true);
+      fetchSuggestions(e.target.value);
+    }, 600);
   };
 
   const handleLoadMore = async () => {
@@ -69,8 +122,23 @@ function Home() {
           placeholder="Search for movies..."
           className="search-input"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={handleChange}
         />
+        {showDropdown && suggestions?.length > 0 && (
+          <ul className="dropdown">
+            {suggestions?.map((movie) => (
+              <li
+                key={movie?.id}
+                onClick={() => {
+                  setSearchQuery(movie?.title);
+                  setShowDropdown(false);
+                }}
+              >
+                {movie?.title}
+              </li>
+            ))}
+          </ul>
+        )}
         <button type="submit" className="search-button">
           Search
         </button>
@@ -87,24 +155,28 @@ function Home() {
       ) : (
         <>
           <p className="count-movies-text">
-            {movies?.length} Movies Found So Far{" "}
+            {!finalQuery.trim()
+              ? `${movies?.length} Movies Found So Far...`
+              : `Found ${movies?.length} results for "${finalQuery}"`}
           </p>
-          <button
-            className="load-btn"
-            type="button"
-            onClick={handleLoadMore}
-            disabled={loading}
-          >
-            Load More{" "}
-            <span>
-              {" "}
-              <img
-                src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanVtcjIwdTd0cGQxeWVxbm8wenpyaDJ5cGdwbnE2azF6MnVqYjNucCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/1wX5TJZPqVw3HhyDYn/giphy.gif"
-                alt="celebration"
-                className="emoji-gif"
-              />
-            </span>
-          </button>
+          {!finalQuery.trim() && (
+            <button
+              className="load-btn"
+              type="button"
+              onClick={handleLoadMore}
+              disabled={loading}
+            >
+              Load More Movies{" "}
+              <span>
+                {" "}
+                <img
+                  src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanVtcjIwdTd0cGQxeWVxbm8wenpyaDJ5cGdwbnE2azF6MnVqYjNucCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/1wX5TJZPqVw3HhyDYn/giphy.gif"
+                  alt="celebration"
+                  className="emoji-gif"
+                />
+              </span>
+            </button>
+          )}
           <div className="movies-grid">
             {movies?.map((movie) => (
               <MovieCard movie={movie} key={movie?.id} />

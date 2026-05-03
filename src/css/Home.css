@@ -11,6 +11,7 @@
   gap: 1rem;
   padding: 0 1rem;
   box-sizing: border-box;
+  position: relative;
 }
 
 .search-input {
@@ -40,6 +41,43 @@
 
 .search-button:hover {
   background-color: #f40612;
+}
+
+/* .search-container {
+  position: relative;
+  width: 300px;
+} */
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+
+  background: #333333;
+  color: #e2dada;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+
+  list-style: none;
+  padding: 0;
+  margin-top: 6px;
+
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.dropdown li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background: #646cff;
 }
 
 @media (max-width: 639px) {
