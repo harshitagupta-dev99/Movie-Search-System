@@ -1,0 +1,12 @@
+.skeleton-container {
+  background-color: #e2dada;
+  width: 100%;
+  height: fit-content;
+  border-radius: 20px;
+}
+
+.skeleton-card {
+  margin-left: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}

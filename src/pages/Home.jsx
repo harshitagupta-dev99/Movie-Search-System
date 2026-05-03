@@ -2,6 +2,7 @@ import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
 import { searchMovies, getPopularMovies } from "../services/api";
 import "../css/Home.css";
+import SkeletonCard from "../components/SkeletonCard";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -46,7 +47,6 @@ function Home() {
 
   const handleLoadMore = async () => {
     setLoading(true);
-    //  const scrollY = window.scrollY;
     const nextPage = page + 1;
     setPage(nextPage);
 
@@ -58,7 +58,6 @@ function Home() {
       setError("Failed to load more movies...");
     } finally {
       setLoading(false);
-      // window.scrollTo(0, scrollY);
     }
   };
 
@@ -80,20 +79,37 @@ function Home() {
       {error && <div className="error-message">{error}</div>}
 
       {loading ? (
-        <div className="loading">Loading...</div>
+        <div className="loader">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
       ) : (
         <>
-        <p><p>{movies?.length} Movies Found So Far</p></p>
-         <button type="button" onClick={handleLoadMore} disabled={loading}>
-            {" "}
-            {loading ? "Loading..." : "Load More Movies"}
+          <p className="count-movies-text">
+            {movies?.length} Movies Found So Far{" "}
+          </p>
+          <button
+            className="load-btn"
+            type="button"
+            onClick={handleLoadMore}
+            disabled={loading}
+          >
+            Load More{" "}
+            <span>
+              {" "}
+              <img
+                src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanVtcjIwdTd0cGQxeWVxbm8wenpyaDJ5cGdwbnE2azF6MnVqYjNucCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/1wX5TJZPqVw3HhyDYn/giphy.gif"
+                alt="celebration"
+                className="emoji-gif"
+              />
+            </span>
           </button>
           <div className="movies-grid">
             {movies?.map((movie) => (
               <MovieCard movie={movie} key={movie?.id} />
             ))}
           </div>
-         
         </>
       )}
     </div>
