@@ -2,7 +2,6 @@
 import "../css/AboutCards.css";
 
 function AboutCards({featuresToDisplay}) {
-    console.log("fewatures==",featuresToDisplay)
   return (
     <div className="card-grid">
         {featuresToDisplay?.map((feature) => (

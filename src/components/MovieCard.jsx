@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import "../css/MovieCard.css";
 import { useMovieContext } from "../contexts/MovieContext";
+import { DISPLAY_10_TEXT } from "../constants/uiConstants";
 
 function MovieCard({ movie }) {
   const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
@@ -35,7 +36,7 @@ function MovieCard({ movie }) {
         <h3>
           <span className="star">⭐ </span>
           <span className="user-rating">
-            {movie.vote_average.toFixed(1)} / 10
+            {movie.vote_average.toFixed(1)}{DISPLAY_10_TEXT}
           </span>
         </h3>
         <h3>{movie?.title}</h3>

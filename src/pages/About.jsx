@@ -1,24 +1,21 @@
 import AboutCards from "../components/AboutCards";
 import "../css/About.css";
+import { ABOUT_PAGE } from "../constants/uiConstants";
 
 function About() {
 
   const sectionsData = {
-    intro_part1:
-      "This project is a movie browsing and search application designed to explore and display movie data through an external API from TMDB. It allows users to discover popular movies, search for specific titles, and interact with content through a clean and responsive interface.",
-    intro_part2:
-      " The base project provided us the core structure and functionality for fetching and displaying movie data, which has been further enhanced with additional features and improvements focused on better user experience, performance, and maintainability.",
-    footer_description:
-      "These improvements were focused on making the application more interactive, reliable, and scalable while maintaining a clean and intuitive user experience.",
-    footer_note:
-      "Note: This product uses the TMDB API but is not endorsed or certified by TMDB.",
+    intro_part1: ABOUT_PAGE?.INTRO_PART1_TEXT,
+    intro_part2: ABOUT_PAGE?.INTRO_PART2_TEXT,
+    footer_description: ABOUT_PAGE?.FOOTER_DESC_TEXT,
+    footer_note: ABOUT_PAGE?.FOOTER_NOTE_TEXT
   };
   const coreFeatures = [
     { id: 1, description: "🎬 Browse Popular movies on the website" },
     { id: 2, description: "🔍 Search movies using external API" },
     { id: 3, description: "🖼️ Responsive movie grid layout" },
     { id: 4, description: "❤️ Add & Manage favourite movies" },
-  ];
+  ]; //LATER ADD TO CONSTANTS
 
   const enhancements = [
     { id: 1, description: "✨ Skeleton loaders for smooth loading experience" },
@@ -55,12 +52,12 @@ function About() {
       id: 12,
       description: "🔗 Customised API integration as per application needs",
     },
-  ];
+  ]; //LATER ADD TO CONSTANTS
 
   
   return (
     <div className="about-page">
-      <h1 className="about-title">About This Project</h1>
+      <h1 className="about-title">{ABOUT_PAGE?.HEADINGS?.ABOUT_PROJECT}</h1>
 
       <p className="about-intro">{sectionsData?.intro_part1}</p>
 
@@ -68,12 +65,12 @@ function About() {
 
       <hr className="divider"></hr>
 
-      <h2 className="core-section-heading">Core Features</h2>
+      <h2 className="core-section-heading">{ABOUT_PAGE?.HEADINGS?.CORE_FEATURES}</h2>
       <AboutCards featuresToDisplay={coreFeatures} />
 
       <hr className="divider"></hr>
 
-      <h2 className="ehancements-heading">Enhancements & Improvements</h2>
+      <h2 className="ehancements-heading">{ABOUT_PAGE?.HEADINGS?.ENHANCEMENTS_AND_IMPROVEMENTS}</h2>
       <AboutCards featuresToDisplay={enhancements} />
 
       <hr className="divider"></hr>

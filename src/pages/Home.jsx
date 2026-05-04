@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { searchMovies, getPopularMovies } from "../services/api";
 import "../css/Home.css";
 import SkeletonCard from "../components/SkeletonCard";
+import { DISPLAY_RESULTS_BROWSE_MODE_TEXT, ERROR_MESSAGES, LOAD_MORE_MOVIES, SEARCH } from "../constants/uiConstants";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,7 +26,7 @@ function Home() {
         setMovies(popularMovies);
       } catch (err) {
         console.log(err);
-        setError("Failed to load movies...");
+        setError(ERROR_MESSAGES?.FAILED_TO_LOAD_DATA);
       } finally {
         setLoading(false);
       }
@@ -44,7 +45,7 @@ function Home() {
       setError(null);
     } catch (err) {
       console.log(err);
-      setError("Failed to search movies...");
+      setError(ERROR_MESSAGES?.FAILED_TO_LOAD_DATA);
     } finally {
       setLoading(false);
       setShowDropdown(false);
@@ -66,14 +67,14 @@ function Home() {
       setError(null);
     } catch (err) {
       console.log(err);
-      setError("Failed to search movies...");
+      setError(ERROR_MESSAGES?.FAILED_TO_LOAD_DATA);
     } finally {
       setLoading(false);
     }
   };
 
   console.log("searchQuery==",searchQuery);
-  console.log("finalQuery==",finalQuery);
+  console.log("finalQuery==",finalQuery); //REMOVE THEM LATER AFTER TESTING
 
   const handleClear = () => {
   setSearchQuery("");
@@ -102,6 +103,7 @@ function Home() {
       clearTimeout(debounceRef.current);
     }
 
+    //debounce added
     debounceRef.current = setTimeout(() => {
       fetchSuggestions(e.target.value);
     }, 600);
@@ -117,7 +119,7 @@ function Home() {
       setMovies((prev) => [...prev, ...popularMovies]);
     } catch (err) {
       console.log(err);
-      setError("Failed to load more movies...");
+      setError(ERROR_MESSAGES?.FAILED_TO_LOAD_DATA);
     } finally {
       setLoading(false);
     }
@@ -129,7 +131,7 @@ function Home() {
          <div className="input-wrapper">
         <input
           type="text"
-          placeholder="Search for movies..."
+          placeholder={SEARCH?.PLACEHOLDER}
           className="search-input"
           value={searchQuery}
           onChange={handleChange}
@@ -141,7 +143,7 @@ function Home() {
         className="clear-btn"
         onClick={handleClear}
       >
-        ×
+        {SEARCH?.CLEAR_ICON}
       </button>
     )}
 
@@ -162,7 +164,7 @@ function Home() {
         )}
         </div>
         <button type="submit" className="search-button">
-          Search
+          {SEARCH?.SEARCH_BUTTON_TEXT}
         </button>
       </form>
 
@@ -178,8 +180,8 @@ function Home() {
         <>
           <p className="count-movies-text">
             {!finalQuery.trim()
-              ? `${movies?.length} Movies Found So Far...`
-              : `Found ${movies?.length} results for "${finalQuery}"`}
+              ? `${movies?.length} ${DISPLAY_RESULTS_BROWSE_MODE_TEXT}`
+              : `Found ${movies?.length} results for "${finalQuery}"`} 
           </p>
           {!finalQuery.trim() && (
             <button
@@ -188,7 +190,7 @@ function Home() {
               onClick={handleLoadMore}
               disabled={loading}
             >
-              Load More Movies{" "}
+              {LOAD_MORE_MOVIES}{" "}
               <span>
                 {" "}
                 <img
