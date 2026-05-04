@@ -75,6 +75,16 @@ function Home() {
   console.log("searchQuery==",searchQuery);
   console.log("finalQuery==",finalQuery);
 
+  const handleClear = () => {
+  setSearchQuery("");
+  setSuggestions([]);
+  setShowDropdown(false);
+  setFinalQuery("");
+  setMovies([]);
+  setPage(1);
+  loadPopularMovies();; // reset to default
+};
+
   const handleChange = (e) => {
     setSearchQuery(e.target.value);
 
@@ -93,7 +103,6 @@ function Home() {
     }
 
     debounceRef.current = setTimeout(() => {
-      // setShowDropdown(true);
       fetchSuggestions(e.target.value);
     }, 600);
   };
@@ -117,6 +126,7 @@ function Home() {
   return (
     <div className="home">
       <form onSubmit={handleSearch} className="search-form">
+         <div className="input-wrapper">
         <input
           type="text"
           placeholder="Search for movies..."
@@ -124,6 +134,17 @@ function Home() {
           value={searchQuery}
           onChange={handleChange}
         />
+
+         {searchQuery && (
+      <button
+        type="button"
+        className="clear-btn"
+        onClick={handleClear}
+      >
+        ×
+      </button>
+    )}
+
         {showDropdown && suggestions?.length > 0 && (
           <ul className="dropdown">
             {suggestions?.map((movie) => (
@@ -139,6 +160,7 @@ function Home() {
             ))}
           </ul>
         )}
+        </div>
         <button type="submit" className="search-button">
           Search
         </button>

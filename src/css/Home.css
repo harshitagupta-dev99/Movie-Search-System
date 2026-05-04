@@ -9,7 +9,7 @@
   margin: 0 auto 2rem;
   display: flex;
   gap: 1rem;
-  padding: 0 1rem;
+  padding: 0 1rem; 
   box-sizing: border-box;
   position: relative;
 }
@@ -43,10 +43,31 @@
   background-color: #f40612;
 }
 
-/* .search-container {
+.input-wrapper {
   position: relative;
-  width: 300px;
-} */
+  display: inline-flex;
+  width: 500px;
+}
+
+
+.clear-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: #aaa;
+  z-index: 2;
+}
+
+.clear-btn:hover {
+  color: #fff;
+}
+
 
 .dropdown {
   position: absolute;
