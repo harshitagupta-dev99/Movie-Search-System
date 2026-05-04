@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { MovieProvider } from "./contexts/MovieContext";
 import NavBar from "./components/NavBar";
 import { SkeletonTheme } from "react-loading-skeleton";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <NavBar />
         <main className="main-content">
           <Routes>
+            <Route path="/about" element={<About />} />
             <Route path="/" element={<Home />} />
             <Route path="/favorites" element={<Favorites />} />
           </Routes>

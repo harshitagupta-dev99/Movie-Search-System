@@ -7,6 +7,7 @@ function NavBar() {
             <Link to="/">Movie App</Link>
         </div>
         <div className="navbar-links">
+            <Link to="/about" className="nav-link">About Project</Link>
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/favorites" className="nav-link">Favorites</Link>
         </div>
