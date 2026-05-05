@@ -59,7 +59,6 @@ function Home() {
       setShowDropdown(false);
       return;
     }
-    // setLoading(true); //check if needed or not ??
     try {
       setShowDropdown(true);
       const searchResults = await searchMovies(searchQuery);
@@ -73,8 +72,6 @@ function Home() {
     }
   };
 
-  console.log("searchQuery==",searchQuery);
-  console.log("finalQuery==",finalQuery); //REMOVE THEM LATER AFTER TESTING
 
   const handleClear = () => {
   setSearchQuery("");

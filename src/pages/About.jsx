@@ -15,7 +15,7 @@ function About() {
     { id: 2, description: "🔍 Search movies using external API" },
     { id: 3, description: "🖼️ Responsive movie grid layout" },
     { id: 4, description: "❤️ Add & Manage favourite movies" },
-  ]; //LATER ADD TO CONSTANTS
+  ]; 
 
   const enhancements = [
     { id: 1, description: "✨ Skeleton loaders for smooth loading experience" },
@@ -52,7 +52,7 @@ function About() {
       id: 12,
       description: "🔗 Customised API integration as per application needs",
     },
-  ]; //LATER ADD TO CONSTANTS
+  ]; 
 
   
   return (
