@@ -178,7 +178,7 @@ function Home() {
           <p className="count-movies-text">
             {!finalQuery.trim()
               ? `${movies?.length} ${DISPLAY_RESULTS_BROWSE_MODE_TEXT}`
-              : `Found ${movies?.length} results for "${finalQuery}"`} 
+              : `Found ${movies?.length} results for your search on "${finalQuery}"`} 
           </p>
           {!finalQuery.trim() && (
             <button

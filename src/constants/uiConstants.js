@@ -32,7 +32,6 @@ export const SEARCH = {
 
 export const DISPLAY_RESULTS_BROWSE_MODE_TEXT = "Movies Found So Far...";
 export const LOAD_MORE_MOVIES = "Load More Movies";
-export const DISPLAY_RESULTS_SEARCH_MODE_TEXT = "results for"; //CHECK HOW TO ADD 
 export const DISPLAY_10_TEXT = " / 10";
 
 export const NAVLINKS = {

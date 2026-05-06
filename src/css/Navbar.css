@@ -45,3 +45,14 @@
     padding: 0.5rem;
   }
 }
+
+@media (max-width: 376px) {
+  .navbar {
+    flex-direction: column;
+    gap:0;
+    padding:0;
+  }
+  .navbar-brand{
+    padding-top: 20px;
+  }
+}

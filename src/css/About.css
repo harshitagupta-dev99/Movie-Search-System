@@ -7,7 +7,9 @@
   color: white;
 }
 
-.about-title , .core-section-heading,.ehancements-heading{
+.about-title,
+.core-section-heading,
+.ehancements-heading {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -19,13 +21,21 @@
   font-size: 16px;
 }
 
-.divider{
-    margin-top: 20px;
-    margin-bottom: 20px;
+.divider {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .about-footer {
   margin-top: 20px;
   text-align: center;
   color: #ffd700;
+}
+
+@media (max-width: 375px) {
+  .about-title,
+  .core-section-heading,
+  .ehancements-heading {
+    font-size: 1.5rem;
+  }
 }

@@ -51,3 +51,9 @@
   animation: fadeIn 0.3s ease-out forwards;
 }
 
+@media (max-width: 426px){
+  .favorites{
+    padding:0;
+  }
+}
+

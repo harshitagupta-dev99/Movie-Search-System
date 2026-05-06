@@ -51,13 +51,16 @@
 
 
 .clear-btn {
-  position: absolute;
-  right: 10px;
+
+   position: relative;
+   padding: 0 15px;
+   border-radius: 4px;
+   background: #333333;
+  margin-left:10px;
   top: 50%;
   transform: translateY(-50%);
 
   border: none;
-  background: transparent;
   font-size: 20px;
   cursor: pointer;
   color: #aaa;
@@ -88,8 +91,6 @@
   overflow-y: auto;
   z-index: 10;
 
-  margin-left: 16px;
-  margin-right: 16px;
 }
 
 .dropdown li {
@@ -109,6 +110,19 @@
   .search-form {
     margin-bottom: 1rem;
   }
+
+   .clear-btn{
+        position: relative;
+        padding: 0 10px;
+        border-radius: 4px;
+        background: #333333;
+        margin-left:4px;
+
+  }
+
+  .search-input:focus{
+    box-shadow: none;
+  }
 }
 
 .movies-grid {
@@ -118,7 +132,6 @@
   padding: 1rem;
   width: 100%;
   box-sizing: border-box;
-  max-width: 1200px;
 }
 
 .loader {
@@ -132,11 +145,11 @@
 }
 
 .count-movies-text {
-  /* border: 2px solid red; */
   display: flex;
   justify-content: center;
   font-weight: bold;
   align-items: center;
+  text-align: center;
 }
 
 .load-btn {
@@ -169,4 +182,29 @@
 .emoji-gif {
   width: 40px;
   height: 40px;
+}
+
+
+@media (max-width: 426px) {
+
+  .input-wrapper{
+    width: 85%;
+  }
+ 
+  .movies-grid{
+    padding: 1rem 0;
+  }
+  .search-form {
+    padding: 0;
+    gap: 0.8rem;
+  }
+  .search-input{
+    font-size: 0.8rem;
+        padding: 12px;
+  }
+
+  .search-button {
+    padding: 6px;
+    font-size: 10px;
+  }
 }
